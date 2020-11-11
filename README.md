@@ -2,14 +2,16 @@
 
 ## user テーブル
 
-| Column      | Type   | Options    |
-| --------    | ------ | ---------- |
-| email       | string | null false |
-| password    | string | null false |
-| nickname    | string | null false |
-|  first_name | string | null false |
-| family_name | string | null false |
-|  birthday   | string | null false |
+| Column         | Type   | Options    |
+| ---------------| ------ | ---------- |
+| email          | string | null false |
+| password       | string | null false |
+| nickname       | string | null false |
+|  first_name    | string | null false |
+| family_name    | string | null false |
+| birthday today| string | null false |
+|first_name_kana | string | null false |
+|family_name_kana| string | null false |
 
 ## Association
 has_many :purchaser
@@ -21,28 +23,28 @@ has_many :items
 | --------    | ------  | ----------   |
 | seller_id   | string  | null false   |
 | category_id | string  | null false   |
-| condition   | string  | null false   |
-|    area     | string  | null false   |
+| condition_id| string  | null false   |
+|    area_id  | string  | null false   |
 |estimated_id | string  | null false   |
-|    user     |resources|foreign key id|
+|    user     |reference|foreign key id|
 |     name    |  string |  null false  |
 |     info    |   text  |  null false  |
-|  price_id   | string  | null false   |
+|    price    | string  | null false   |
 
 ## Association
 belongs_to :users
-has_one :purchasers
+has_one :purchaser
 
 ## purchasers テーブル
-| Column      | Type   | Options    |
-| ----------- | ------ | ---------- |
-|     user    | string | null false |
-|    item     | string | null false |
+| Column      | Type    | Options      |
+| ----------- | --------| -------------|
+|    user    |reference|foreign key id|
+|    item     |reference|foreign key id|
 
 ## Association
 has_one address
-belongs_to users
-belongs_to items
+belongs_to user
+belongs_to item
 
 ## address テーブル
 |postal code_id | string    | null false   |
@@ -50,9 +52,7 @@ belongs_to items
 |  number_id    |  string   | null false   |
 | building name |  string   |              |
 |phone number_id|  string   | null false   |
-|    user       |resources  |foreign key id|
-|    item       |resources  |foreign key id|
- 
+
  ## Association
- belong_to :purchasers
+ belong_to :purchaser
  
