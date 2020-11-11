@@ -4,7 +4,7 @@
 
 | Column           | Type   | Options    |
 | ---------------  | ------ | ---------- |
-| email            | string | null false |
+| 　　　email       | string | null false |
 |encrypted_password| string | null false |
 |    nickname      | string | null false |
 |   first_name     | string | null false |
@@ -47,13 +47,16 @@ belongs_to user
 belongs_to item
 
 ## address テーブル
-| Column      | Type    | Options      |
-| ----------- | --------| -------------|
-| postal_code |  string | null false   |
-|municipality |  string | null false   |
-|  number     |  string | null false   |
-|building_name|  string |              |
-|phone_number |  string | null false   |
+| Column      | Type    | Options         |
+| ----------- | --------| --------------- |
+| postal_code |  string | null false      |
+|prefecture_id|  string | null false      |
+|municipality |  string | null false      |
+|  number     |  string | null false      |
+|building_name|  string | null false      |
+|phone_number |  string | null false      |
+| purchaser   |reference|foreign_key: true|
+
 
  ## Association
  belong_to :purchaser
