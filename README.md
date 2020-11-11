@@ -1,24 +1,58 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## user テーブル
 
-Things you may want to cover:
+| Column      | Type   | Options    |
+| --------    | ------ | ---------- |
+| email       | string | null false |
+| password    | string | null false |
+| nickname    | string | null false |
+|  first_name | string | null false |
+| family_name | string | null false |
+|  birthday   | string | null false |
 
-* Ruby version
+## Association
+has_many :purchaser
+has_many :items
 
-* System dependencies
+## items テーブル
 
-* Configuration
+| Column      | Type    | Options      |
+| --------    | ------  | ----------   |
+| seller_id   | string  | null false   |
+| category_id | string  | null false   |
+| condition   | string  | null false   |
+|    area     | string  | null false   |
+|estimated_id | string  | null false   |
+|    user     |resources|foreign key id|
+|     name    |  string |  null false  |
+|     info    |   text  |  null false  |
+|  price_id   | string  | null false   |
 
-* Database creation
+## Association
+belongs_to :users
+has_one :purchasers
 
-* Database initialization
+## purchasers テーブル
+| Column      | Type   | Options    |
+| ----------- | ------ | ---------- |
+|     user    | string | null false |
+|    item     | string | null false |
 
-* How to run the test suite
+## Association
+has_one address
+belongs_to users
+belongs_to items
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## address テーブル
+|postal code_id | string    | null false   |
+|municipality_id|  string   | null false   |
+|  number_id    |  string   | null false   |
+| building name |  string   |              |
+|phone number_id|  string   | null false   |
+|    user       |resources  |foreign key id|
+|    item       |resources  |foreign key id|
+ 
+ ## Association
+ belong_to :purchasers
+ 
