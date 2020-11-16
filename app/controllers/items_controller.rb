@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, expect: [:index]
 
   def index
-    #@items = Item.order("created_at DESC")
+    @items = Item.order("created_at DESC")
   end
 
   def new
@@ -17,6 +17,7 @@ class ItemsController < ApplicationController
         render :new 
       end
   end
+
 
 
   private
