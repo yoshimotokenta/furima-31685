@@ -41,10 +41,11 @@ class ItemsController < ApplicationController
 
   def destroy
     unless user_signed_in? && current_user.id == @item.user_id
-    if @item.destroy
-    redirect_to action: :index
-    else
-    render :show
+      if @item.destroy
+      redirect_to action: :index
+      else
+      render :show
+      end
     end
   end
 
