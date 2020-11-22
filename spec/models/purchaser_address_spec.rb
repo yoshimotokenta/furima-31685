@@ -7,9 +7,13 @@ describe PurchaserAddress do
     describe'商品購入機能' do
       context '出品登録がうまくいく時' do
        it "postal_code,area_id,municipality,number,phone_number,token,building_nameが存在する時に登録できる" do
-        binding.pry
         expect(@purchaser_address).to be_valid
        end
+
+       it "building_nameに空でも登録できる" do
+         @purchaser_address.building_name = ""
+         expect(@purchaser_address).to be_valid
+        end
       end
 
       context '出品がうまくいかない時' do
@@ -25,7 +29,7 @@ describe PurchaserAddress do
           expect(@purchaser_address.errors.full_messages).to include{"Postal code can't be blank"}
         end
 
-        it "postal_codeにハイフンが記載がないとき" do
+        it "postal_codeにハイフンが記載がないとき登録できない" do
           @purchaser_address.postal_code = "0000000"
           @purchaser_address.valid?
           expect(@purchaser_address.errors.full_messages).to include{"Postal code is invalid. Include hyphen(-)"}
@@ -33,6 +37,12 @@ describe PurchaserAddress do
 
         it "area_idが空だと登録できない" do
           @purchaser_address.area_id = nil
+          @purchaser_address.valid?
+          expect(@purchaser_address.errors.full_messages).to include{"Area id code can't be blank"}
+        end
+
+        it "area_idが1だと登録できない" do
+        @purchaser_address.area_id = 1
           @purchaser_address.valid?
           expect(@purchaser_address.errors.full_messages).to include{"Area id code can't be blank"}
         end
@@ -60,8 +70,14 @@ describe PurchaserAddress do
           @purchaser_address.valid?
           expect(@purchaser_address.errors.full_messages).to include{"Phone number Input only number"}
         end
-      end
+        it "phone_numberにハイフンがあるとき登録できない" do
+          @purchaser_address.phone_number = 000-0000-0000
+          @purchaser_address.valid?
+          expect(@purchaser_address.errors.full_messages).to include{"Phone number Input only number"}
+       end
     end
   end
-  
+end
+
+
   

@@ -1,13 +1,16 @@
 class PurchaserController < ApplicationController
+   before_action :authenticate_user!
+   before_action :set_item
 
   def index
-    @item =Item.find(params[:item_id])
     @purchaser_address = PurchaserAddress.new
+    if current_user.id == @item.user_id || @item.purchaser.present?
+      redirect_to root_path
+    end
   end
 
   def create
     @purchaser_address = PurchaserAddress.new(purchaser_params)
-    @item =Item.find(params[:item_id])
     if @purchaser_address.valid?
       pay_item
       @purchaser_address.save
@@ -20,7 +23,19 @@ class PurchaserController < ApplicationController
   private
 
   def purchaser_params
-    params.require(:purchaser_address).permit(:postal_code, :area_id, :municipality, :number, :phone_number, :building_name).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:purchaser_address)
+    .permit(
+      :postal_code, 
+      :area_id, 
+      :municipality, 
+      :number, 
+      :phone_number, 
+      :building_name)
+      .merge(
+        user_id: current_user.id, 
+        item_id: params[:item_id], 
+        token: params[:token]
+      )
   end
 
   def pay_item
@@ -30,6 +45,9 @@ class PurchaserController < ApplicationController
         card: purchaser_params[:token],    # カードトークン
         currency: 'jpy'                 # 通貨の種類（日本円）
       )
+  end
+  def set_item
+    @item =Item.find(params[:item_id])
   end
 end
 
