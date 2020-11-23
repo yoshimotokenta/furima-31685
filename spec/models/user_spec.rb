@@ -54,6 +54,13 @@ describe User do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
+
+      it "passwordとpassword_confirmation同一でないと登録できない" do
+        @user.password_confirmation = "passworde"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
+      
       it "passwordが半角英数字でないと登録できない" do
         @user.password_confirmation = "000aaa"
         @user.valid?

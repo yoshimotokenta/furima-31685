@@ -7,7 +7,7 @@ class PurchaserAddress
     validates :area_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :municipality
     validates :number
-    validates :phone_number, format: {with: /\A((0(\d{1}[-(]?\d{4}|\d{2}[-(]?\d{3}|\d{3}[-(]?\d{2}|\d{4}[-(]?\d{1}|[5789]0[-(]?\d{4})[-)]?)|\d{1,4}\-?)\d{4}\z/,message: "Input only number"}
+    validates :phone_number length: { maximum: 11 }
     validates :token
   end
 

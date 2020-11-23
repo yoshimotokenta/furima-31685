@@ -66,15 +66,10 @@ describe PurchaserAddress do
         end
 
         it "phone_numberが11桁ではないとき" do
-          @purchaser_address.phone_number = "00000000000"
+          @purchaser_address.phone_number = "000000000000"
           @purchaser_address.valid?
           expect(@purchaser_address.errors.full_messages).to include{"Phone number Input only number"}
         end
-        it "phone_numberにハイフンがあるとき登録できない" do
-          @purchaser_address.phone_number = "000-0000-0000"
-          @purchaser_address.valid?
-          expect(@purchaser_address.errors.full_messages).to include{"Phone number Input only number"}
-       end
     end
   end
 end
