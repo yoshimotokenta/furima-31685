@@ -1,6 +1,7 @@
 class PurchaserController < ApplicationController
    before_action :authenticate_user!
    before_action :set_item
+   
 
   def index
     @purchaser_address = PurchaserAddress.new
